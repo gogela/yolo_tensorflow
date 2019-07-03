@@ -88,20 +88,23 @@ class darknet_read(object):
         if not os.path.exists(self.cache_path):
             os.makedirs(self.cache_path)
 
-        #if self.phase == 'train':
-        #    txtname = os.path.join(
-        #        self.data_path, 'ImageSets', 'Main', 'trainval.txt')
-        #else:
-        #    txtname = os.path.join(
-        #        self.data_path, 'ImageSets', 'Main', 'test.txt')
-        #TODO - read training dir
-        gt_labels = []
+        if self.phase == 'train':
+            annot_path = os.path.join(self.data_path, 'tr_data')
+        else:
+            annot_path = os.path.join(self.data_path, 'test_data')
+        #get files
+        lf=os.listdir(annot_path)
+        lf.sort()
+        jpeg_files = [x for x in lf if '.JPEG' in x]
+        txt_files = [x for x in lf if '.txt' in x]
         
-        for jpeg_file,txt_file in annotnnot_list:
-            label, num = self.load_darknet_annotation(jpeg_file,txt_file)
+        gt_labels = []
+        for i in range(0,len(jpeg_files)):
+        #for jpeg_file,txt_file in annotnnot_list:
+            label, num = self.load_darknet_annotation(jpeg_files[i],txt_files[i])
             if num == 0:
                 continue
-            imname = os.path.join(self.data_path, jpeg_file)
+            imname = os.path.join(self.data_path, jpeg_files[i])
             gt_labels.append({'imname': imname,
                               'label': label,
                               'flipped': False})
