@@ -101,11 +101,13 @@ class darknet_read(object):
         gt_labels = []
         for i in range(0,len(jpeg_files)):
         #for jpeg_file,txt_file in annotnnot_list:
-            label, num = self.load_darknet_annotation(jpeg_files[i],txt_files[i])
+            image_path = os.path.join(annot_path, jpeg_files[i])
+            txt_path = os.path.join(annot_path, txt_files[i])
+            label, num = self.load_darknet_annotation(image_path,txt_path)
             if num == 0:
                 continue
-            imname = os.path.join(annot_path, jpeg_files[i])
-            gt_labels.append({'imname': imname,
+            
+            gt_labels.append({'imname': image_path,
                               'label': label,
                               'flipped': False})
         print('Saving gt_labels to: ' + cache_file)
@@ -116,7 +118,7 @@ class darknet_read(object):
    
 
 
-    def load_darknet_annotation(self, index):
+    def load_darknet_annotation(self, jpeg_file,txt_file): #filenames with full path
         """
         derived from load_pascal_annotation()
         load image and txt file
@@ -128,19 +130,15 @@ class darknet_read(object):
         image_size = cfg.IMAGE_SIZE
 
         cell_size = cfg.CELL_SIZE
-        #print('isize:',image_size)
-        #imname = '/content/yolo_tensorflow/data/gasmeter/tr_data/idd0001.JPEG'
-        imname = os.path.join(self.data_path, 'idd', index + '.JPEG')
-
-        im = cv2.imread(imname)
+        
+        im = cv2.imread(jpeg_file)
         h_ratio = 1.0 * image_size / im.shape[0]
         w_ratio = 1.0 * image_size / im.shape[1]
         # im = cv2.resize(im, [image_size, image_size])
 
         label = np.zeros((cell_size,cell_size, 25))
         #filename ='/content/yolo_tensorflow/data/gasmeter/tr_data/idd0001.txt'
-        annot_name = os.path.join(self.data_path, 'idd', index + '.txt')
-        ff=open(annot_name)
+        ff=open(txt_file)
 
         objs=0
         for obj in ff: #typically single line, anyway, multiple lines with multiple object can theoretically happen
