@@ -104,7 +104,7 @@ class darknet_read(object):
             label, num = self.load_darknet_annotation(jpeg_files[i],txt_files[i])
             if num == 0:
                 continue
-            imname = os.path.join(self.data_path, jpeg_files[i])
+            imname = os.path.join(annot_path, jpeg_files[i])
             gt_labels.append({'imname': imname,
                               'label': label,
                               'flipped': False})
