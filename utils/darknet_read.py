@@ -93,6 +93,7 @@ class darknet_read(object):
         else:
             annot_path = os.path.join(self.data_path, 'test_data')
         #get files
+        print('read darkent annotaions from:',annot_path)
         lf=os.listdir(annot_path)
         lf.sort()
         jpeg_files = [x for x in lf if '.JPEG' in x]
