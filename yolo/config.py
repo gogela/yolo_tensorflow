@@ -6,13 +6,13 @@ import os
 
 DATA_PATH = 'data'
 
-PASCAL_PATH = os.path.join(DATA_PATH, 'pascal_voc')
+#PASCAL_PATH = os.path.join(DATA_PATH, 'pascal_voc')
 
-CACHE_PATH = os.path.join(PASCAL_PATH, 'cache')
+CACHE_PATH = os.path.join(DATA_PATH, 'cache')
 
-OUTPUT_DIR = os.path.join(PASCAL_PATH, 'output')
+OUTPUT_DIR = os.path.join(DATA_PATH, 'output')
 
-WEIGHTS_DIR = os.path.join(PASCAL_PATH, 'weights')
+WEIGHTS_DIR = os.path.join(DATA_PATH, 'weights')
 
 #WEIGHTS_FILE = None
 WEIGHTS_FILE = os.path.join(DATA_PATH, 'weights', 'YOLO_small.ckpt')
@@ -49,7 +49,7 @@ COORD_SCALE = 5.0
 # solver parameter
 #
 
-GPU = ''
+GPU = 'True'
 
 LEARNING_RATE = 0.0001
 
