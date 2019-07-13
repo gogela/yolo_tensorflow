@@ -149,10 +149,13 @@ def main():
     os.environ['CUDA_VISIBLE_DEVICES'] = cfg.GPU
 
     yolo = YOLONet()
-    pascal = pascal_voc('train')
-
-    solver = Solver(yolo, pascal)
-
+    #pascal = pascal_voc('train')
+    #solver = Solver(yolo, pascal)
+    
+    #training on darknet data
+    dn = darknet_read('train')
+    solver=Solver(yolo,dn)
+    
     print('Start training ...')
     solver.train()
     print('Done training.')
