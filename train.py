@@ -6,6 +6,7 @@ import yolo.config as cfg
 from yolo.yolo_net import YOLONet
 from utils.timer import Timer
 from utils.pascal_voc import pascal_voc
+from utils.darknet_read import darknet_read
 
 slim = tf.contrib.slim
 
